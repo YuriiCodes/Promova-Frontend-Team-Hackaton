@@ -5,6 +5,7 @@ import { AdvItem } from '@/types/content';
 import { loadAd } from '@/test-fix';
 
 type Props = Omit<AdvItem, 'type'>;
+
 const Adv: FC<Props> = ({ id, pbjsInstance }) => {
   useEffect(() => {
     if (pbjsInstance?.que) {
