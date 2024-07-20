@@ -1,46 +1,46 @@
-import { useVirtualizer } from '@tanstack/react-virtual';
-import { FC, useRef } from 'react';
+import { useWindowVirtualizer } from '@tanstack/react-virtual';
+import { FC, useEffect, useRef } from 'react';
 
 import { DataItem } from '@/types/content';
 
 import Progress from '@/components/Progress';
 import Switcher from '@/components/Switcher';
+import TopVideo from '@/components/TopVideo';
 
 import useAutoScroll from '@/hooks/useAutoScroll';
-import useWindowHeight from '@/hooks/useWindowHeight';
+import useShowVideo from '@/hooks/useShowVideo';
+import appendVidazoo from '@/utils/appendVidazoo';
 
 interface MapperProps {
   data: DataItem[];
 }
 
 const Virtualizer: FC<MapperProps> = ({ data }) => {
-  const parentRef = useRef(null);
-  useAutoScroll(parentRef);
+  const parentRef = useRef<HTMLDivElement | null>(null);
+  useAutoScroll();
 
-  const { windowHeight } = useWindowHeight();
-  const virtualizer = useVirtualizer({
+  const virtualizer = useWindowVirtualizer({
     count: data.length,
-    getScrollElement: () => parentRef.current,
-    estimateSize: () => 500,
+    estimateSize: () => 35,
     overscan: 10,
+    scrollMargin: parentRef.current?.offsetTop ?? 0,
   });
+  const isShowVideo = useShowVideo();
 
   let offset = virtualizer.scrollOffset || 0;
   let size = virtualizer.getTotalSize();
 
   let scrollProgress = (offset / size) * 100;
 
+  useEffect(() => {
+    appendVidazoo('vidazoo');
+  }, []);
+
   return (
     <>
+      {!isShowVideo && <TopVideo />}
       <Progress width={scrollProgress} />
-      <div
-        ref={parentRef}
-        style={{
-          height: windowHeight,
-          overflowY: 'auto',
-        }}
-        className="scrollbar-custom"
-      >
+      <div ref={parentRef} className="scrollbar-custom">
         <div
           style={{
             height: `${virtualizer.getTotalSize()}px`,
@@ -57,7 +57,7 @@ const Virtualizer: FC<MapperProps> = ({ data }) => {
                   new ResizeObserver(() => virtualItem.measureElement(el)).observe(el);
                 }
               }}
-              data-index={virtualItem.index}
+              data-item={virtualItem.index}
               style={{
                 position: 'absolute',
                 top: 0,
