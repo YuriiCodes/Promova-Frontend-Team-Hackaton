@@ -15,7 +15,6 @@ const VirtualizeWrapper = ({
         new ResizeObserver(() => virtualItem.measureElement(el)).observe(el);
       }
     }}
-    data-index={virtualItem.index}
     style={{
       position: 'absolute',
       top: 0,
