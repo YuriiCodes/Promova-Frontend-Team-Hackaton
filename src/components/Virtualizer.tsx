@@ -41,7 +41,7 @@ const Virtualizer: FC<MapperProps> = ({ data }) => {
     <>
       {!isShowVideo && <TopVideo />}
       <Progress width={scrollProgress} />
-      <div ref={parentRef} className="scrollbar-custom">
+      <div ref={parentRef}>
         <div
           style={{
             height: `${virtualizer.getTotalSize()}px`,
@@ -58,6 +58,7 @@ const Virtualizer: FC<MapperProps> = ({ data }) => {
                   new ResizeObserver(() => virtualItem.measureElement(el)).observe(el);
                 }
               }}
+              data-index={virtualItem.index}
               style={{
                 position: 'absolute',
                 top: 0,
