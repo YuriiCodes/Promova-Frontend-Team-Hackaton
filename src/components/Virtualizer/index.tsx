@@ -17,6 +17,7 @@ interface MapperProps {
   data: ArticleItem[];
 }
 
+const SIZE_OFFSET_TO_FILL_PROGRESS = 720;
 const Virtualizer: FC<MapperProps> = ({ data }) => {
   useAutoScroll();
 
