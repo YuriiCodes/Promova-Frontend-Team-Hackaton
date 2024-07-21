@@ -20,21 +20,21 @@ const Home: NextPage<Props> = ({ data }) => {
   const image = data.find((item) => item.type === 'image')?.src;
 
   return (
-	<>
-	  <Head>
-		<title>{title}</title>
-		<meta property="og:title" content={title} />
-		<meta name="twitter:title" content={title} />
-		<meta name="image" content={image} />
-		<meta property="og:image" content={image} />
-		<meta name="twitter:image" content={image} />
-	  </Head>
-	  <main className={inter.className}>
-		<ArticleWrapper>
-		  <Virtualizer data={data} />
-		</ArticleWrapper>
-	  </main>
-	</>
+    <>
+      <Head>
+        <title>{title}</title>
+        <meta property="og:title" content={title} />
+        <meta name="twitter:title" content={title} />
+        <meta name="image" content={image} />
+        <meta property="og:image" content={image} />
+        <meta name="twitter:image" content={image} />
+      </Head>
+      <main className={inter.className}>
+        <ArticleWrapper>
+          <Virtualizer data={data} />
+        </ArticleWrapper>
+      </main>
+    </>
   );
 };
 

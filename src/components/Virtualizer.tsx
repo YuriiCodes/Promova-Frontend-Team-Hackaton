@@ -18,6 +18,7 @@ interface MapperProps {
 }
 
 const SIZE_OFFSET_TO_FILL_PROGRESS = 720;
+
 const Virtualizer: FC<MapperProps> = ({ data }) => {
   useAutoScroll();
 
@@ -35,7 +36,7 @@ const Virtualizer: FC<MapperProps> = ({ data }) => {
   }, []);
 
   const offset = virtualizer.scrollOffset || 0;
-  const size = virtualizer.getTotalSize();
+  const size = virtualizer.getTotalSize() - SIZE_OFFSET_TO_FILL_PROGRESS;
   const scrollProgress = (offset / size) * 100;
 
   const virtualizerStyles: CSSProperties = {
