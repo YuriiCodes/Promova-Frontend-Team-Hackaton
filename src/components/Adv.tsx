@@ -32,7 +32,7 @@ const Adv: FC<AdvItem> = ({ id, pbjsInstance }) => {
 
       loadAd(id);
     }
-  }, [pbjsInstance]);
+  }, [pbjsInstance, id]);
 
   return <div id={id} data-slot-type={1} />;
 };
